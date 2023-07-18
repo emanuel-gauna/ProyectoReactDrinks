@@ -6,10 +6,11 @@ export const cartInitialState = {
 
 
 
-export function cartReducer (state, {type , payload}){
+export function cartReducer (state, {type , payload = {} }){
     const { idDrink  } = payload;
     
     let drinkInCart = state.cartItems.find((item) => item.idDrink === idDrink );
+
     switch(type){
         case actionTypes.ADD_TO_CART:
         if (drinkInCart) {
@@ -37,11 +38,10 @@ export function cartReducer (state, {type , payload}){
               } 
         }
         case actionTypes.REMOVE_ONE_FROM_CART:
-            //existe
-            //quantity > 1 = ? => restar 1
+            
             if(drinkInCart.quantity > 1 ){
-                let cartItemUpdated = state.cartItems.map(item => {
-                    if(item.idDrink === idDrink){
+                let cartItemUpdated = state.cartItems.map((item) => {
+                    if(item.idDrink == idDrink){
                         return{
                             ...item,
                             quantity: item.quantity - 1
@@ -57,7 +57,8 @@ export function cartReducer (state, {type , payload}){
                         cartItems: cartItemUpdated
                      }
             }else{
-                let cartItemUpdated = state.cartItems.filter(item => !item.idDrink === idDrink)
+                let cartItemUpdated = state.cartItems.filter(
+                    (item) => item.idDrink != idDrink)
                         return { 
                             ...state,
                             cartItems: cartItemUpdated
@@ -65,7 +66,8 @@ export function cartReducer (state, {type , payload}){
                     }
                     case actionTypes.REMOVE_ALL_FROM_CART:
                         if(drinkInCart){
-                            let cartItemUpdated = state.cartItems.filter(item =>  !item.idDrink === idDrink) 
+                            let cartItemUpdated = state.cartItems.filter(
+                                (item) =>  item.idDrink != idDrink) 
                             return {
                                 ...state, 
                                 cartItems: cartItemUpdated,
@@ -78,6 +80,4 @@ export function cartReducer (state, {type , payload}){
                                 cartItems: []
                             };
                 }
-
-
     }    

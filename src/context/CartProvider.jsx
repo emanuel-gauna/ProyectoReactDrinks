@@ -1,8 +1,10 @@
-import { useReducer, createContext } from "react";
+import { useReducer, createContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { actionTypes } from "../actions/cart.action";
 import { cartReducer , cartInitialState } from "../reducers/cart.reducer";
-
+import { getTotalPricesItems } from "../components/utils/cart.utils"
+import { object } from "yup";
+ 
 const CartContext = createContext();
 
 
@@ -10,12 +12,21 @@ const CartContext = createContext();
 
 function CartProvider ({children}) {
     const [ state , dispatch] = useReducer(cartReducer, cartInitialState);
+    const [ orderTotal , setOrderTotal]  = useState(0);
+
+    useEffect(() =>{
+     let total =  getTotalPricesItems(state.cartItems).reduce((a,b) => a + b, 0)  
+     setOrderTotal(total)
+    }, [state])
+    
+
+
     
     function addToCart(drink) {
         dispatch({type: actionTypes.ADD_TO_CART, payload: drink})
     }
 
-    function removeFromCart (idDrink){
+    function removeOneFromCart (idDrink){
         dispatch({type: actionTypes.REMOVE_ONE_FROM_CART, payload: {idDrink}})
     }
 
@@ -24,17 +35,28 @@ function CartProvider ({children}) {
     }
 
     function clearCart () {
-        dispatch({type: actionTypes.CLEAR_CART})
+        dispatch({type: actionTypes.CLEAR_CART});
+        setOrderTotal(0)
     }
 
+    function sendOrder() {
+        alert("ESTAS POR COMPRAR" + " " + JSON.stringify({
+            ...state.cartItems.map((item)  =>  item
+            
+            )
+            
+        }))
+    }
 
     const cartValues = {
         cart: state ,
         addToCart,
         removeAllFromCart,
-        removeFromCart,
-        clearCart
-    }
+        removeOneFromCart,
+        clearCart,
+        sendOrder,
+        orderTotal
+    };
 
     return(
         <CartContext.Provider value={cartValues}>
