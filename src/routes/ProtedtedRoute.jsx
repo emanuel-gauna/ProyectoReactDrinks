@@ -1,13 +1,12 @@
-
 import { Outlet , Navigate } from "react-router-dom";
-import { useAuth } from "../context/AuthProvider";
+import { useAuth } from "../hooks/useAuth";
 
 export const ProtectedRoute = () => {
   const { currentUser } = useAuth();
 
-  return currentUser ? (
-    <Outlet />
+  return currentUser ? (/* si hay un usuario logueado */
+    <Outlet /> /* permitime seguir en esta ruta */
   ) : (
-    <Navigate to="/signin" replace />
+    <Navigate to="/login" replace /> /* caso contrario mandame de nuevo a login */
   );
 }

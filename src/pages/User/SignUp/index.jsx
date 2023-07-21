@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-
-
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -15,6 +13,8 @@ import Copyright from '../Copyright';
 import { Formik } from 'formik';
 import { Link } from 'react-router-dom';
 
+import { useAuth } from '../../../hooks/useAuth';
+
 
 
 // TODO remove, this demo shouldn't need to reset the theme.
@@ -22,14 +22,7 @@ import { Link } from 'react-router-dom';
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+const { register } = useAuth()
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -47,14 +40,14 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            registrate
+            Registrate
           </Typography>
 
-          <Formik
+        <Formik
           initialValues={{
             name: "",
             email: "",
-            password "",
+            password: "",
           }}
           validate={(values) =>{
             const errors = {};
@@ -73,68 +66,77 @@ export default function SignUp() {
             if(!values.password){
               errors.password = "La contraseña es requerida"
 
-            })
+            }
 
             return errors;
           }}
-          onSubmit={(values, {setSubmiting}) =>{
-            console.log(values)
+          onSubmit={(values) =>{
+            register(values);
 
-            setSubmiting(false)
           }}
-          
-          
+        >         
+{
+  ({
+    values,
+    errors,
+    touched,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  }) => (        
+          <Box 
+          component="form" 
+          noValidate 
+          onSubmit={handleSubmit}
+           sx={{ mt: 3 }}
           >
-              ({
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  autoComplete="given-name"
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
+              <Grid item xs={12} >
+              <TextField
+              margin="normal"
+              fullWidth
+              name="name"
+              label="Nombre"
+              type="name"
+              id="name"
+              autoFocus
+              value={values.name}
+              error={errors.name && touched.name}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={errors.name && touched.name &&  errors.name}
+            />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                />
+              <TextField
+              margin="normal"
+              fullWidth
+              name="email"
+              label="Email"
+              type="email"
+              id="email"
+              value={values.email}
+              error={errors.email && touched.email}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={errors.email && touched.email &&  errors.email}
+            />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
+              <TextField
+              margin="normal"
+              fullWidth
+              name="password"
+              label="Contraseña"
+              type="password"
+              id="password"
+              autoFocus
+              value={values.password}
+              error={errors.password && touched.password}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              helperText={errors.password && touched.password &&  errors.password}
+            />
               </Grid>
             </Grid>
             <Button
@@ -153,9 +155,7 @@ export default function SignUp() {
               </Grid>
             </Grid>
           </Box>
-        
-                }  )
-
+)}
         </Formik>
         </Box>
         <Copyright sx={{ mt: 5 }} />
