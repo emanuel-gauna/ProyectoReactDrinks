@@ -7,3 +7,28 @@
     font-family: "Outfit", sans-serif;
     font-weight: 900;
   }
+  .nombreLogueado {
+    color: black;
+    border-radius: 2px solid white;
+    text-transform: uppercase;
+    max-height:  600 ;
+  }
+  .buttonSession{
+    border-radius:  8px ;
+    background-color: rgb(60, 239, 60) ;
+    color: white;
+    transition: all ease 1s;
+    box-shadow: 2px 2px solid green;
+  }
+
+  .buttonSession:hover{
+    border-radius:  8px ;
+    background-color: teal ;
+    transform: scale(1.2);
+  }
+  .icon{
+    background-color: #404040;
+  }
+  .icon:hover{
+    background-color: #807d7d;
+  }

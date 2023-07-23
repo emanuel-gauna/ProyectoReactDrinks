@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { actionTypes } from "../actions/cart.action";
 import { cartReducer , cartInitialState } from "../reducers/cart.reducer";
 import { getTotalPricesItems } from "../components/utils/cart.utils"
-import { object } from "yup";
+
  
 const CartContext = createContext();
 

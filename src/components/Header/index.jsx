@@ -14,10 +14,13 @@ export default function Header() {
 {
     currentUser && (
         <>
-        <p>{currentUser.name}</p>
-<FontAwesomeIcon icon={faCartShopping} onClick={toogleModal} />
-<button onClick={logout}>Cerrar sesion</button>
+        <p className={styles.nombreLogueado}>{currentUser.name}</p>
+<FontAwesomeIcon icon={faCartShopping} border={true} className={styles.icon} onClick={toogleModal} />
+<div>
+<button onClick={logout} className={styles.buttonSession}>Cerrar sesion</button>
+</div>
         </>
+
     )
 }
 </header> 
