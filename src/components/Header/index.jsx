@@ -4,8 +4,7 @@ import { faCartShopping } from "@fortawesome/free-solid-svg-icons"
 import useModal from "../../hooks/useModal"
 import { useAuth } from "../../hooks/useAuth";
 
-
-export default function Header() {
+export default function Header(){
     const { toogleModal } = useModal();
     const { currentUser, logout } = useAuth();
     return(
@@ -15,7 +14,12 @@ export default function Header() {
     currentUser && (
         <>
         <p className={styles.nombreLogueado}>{currentUser.name}</p>
-<FontAwesomeIcon icon={faCartShopping} border={true} className={styles.icon} onClick={toogleModal} />
+<FontAwesomeIcon 
+icon={faCartShopping}
+border={true} 
+className={styles.icon}
+onClick={toogleModal}
+/>
 <div>
 <button onClick={logout} className={styles.buttonSession}>Cerrar sesion</button>
 </div>

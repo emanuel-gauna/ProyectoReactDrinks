@@ -28,6 +28,11 @@
   }
   .icon{
     background-color: #404040;
+    position: fixed;
+    top: 5;
+    right: 0;
+    font-size: 20px;
+   
   }
   .icon:hover{
     background-color: #807d7d;

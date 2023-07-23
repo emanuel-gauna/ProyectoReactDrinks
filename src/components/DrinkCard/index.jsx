@@ -8,7 +8,7 @@ import { useCart } from "../../hooks/useCart";
 export default function DrinkCard ({drink}){
 
     const { handleModalClick , handleDrinkIdClick  } = useDrinks(); 
-    const { addToCart} = useCart();
+    const { addToCart } = useCart();
 
     function handleAddToCart (drink) {
         addToCart(drink)
