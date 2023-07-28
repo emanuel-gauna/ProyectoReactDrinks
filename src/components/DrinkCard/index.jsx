@@ -3,12 +3,11 @@ import { useDrinks } from "../../hooks/useDrinks";
 import PropTypes from "prop-types";
 import { useCart } from "../../hooks/useCart";
 
- 
-
 export default function DrinkCard ({drink}){
 
-    const { handleModalClick , handleDrinkIdClick  } = useDrinks(); 
+    const { handlerModalClick , handleDrinkIdClick  } = useDrinks(); 
     const { addToCart } = useCart();
+
 
     function handleAddToCart (drink) {
         addToCart(drink)
@@ -22,7 +21,6 @@ export default function DrinkCard ({drink}){
                    src={drink.strDrinkThumb}
                    alt={`Imagen de ${drink.strDrink}`}
                 />
-
                 <Card.Body>
                     <Card.Title>{drink.strDrink}</Card.Title>
                     <Card.Subtitle style={{marginBottom: 2}}>{drink.price} </Card.Subtitle>
@@ -32,7 +30,7 @@ export default function DrinkCard ({drink}){
                 variant="warning"
                 className="text-uppercase"
                 onClick={() => {
-                  handleModalClick();
+                  handlerModalClick();
                   handleDrinkIdClick(drink.idDrink);
                 }}
               >

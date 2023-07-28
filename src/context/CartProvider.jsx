@@ -40,12 +40,16 @@ function CartProvider ({children}) {
     }
 
     function sendOrder() {
-        alert("ESTAS POR COMPRAR" + " " + JSON.stringify({
-            ...state.cartItems.map((item)  =>  item
-            
-            )
-            
-        }))
+        alert(`ESTAS POR COMPRAR UN TOTAL DE$${orderTotal}` + " " + JSON.stringify(
+            state.cartItems.map(item  => item =
+                {
+                    producto: item.strDrink,
+                    precio: item.price,
+                    cantidad: item.quantity, 
+                }    
+              ) 
+             )
+        )
     }
 
     const cartValues = {

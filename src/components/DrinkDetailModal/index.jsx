@@ -4,7 +4,7 @@ import { useDrinks } from "../../hooks/useDrinks";
 
 export default function DrinkDetailModal () {
   
-    const {modal, handleModalClick, recipe, loading} = useDrinks();
+    const {modal, handlerModalClick, recipe, loading} = useDrinks();
 
     function showIngredients () {
          let ingredients = [];
@@ -23,12 +23,13 @@ export default function DrinkDetailModal () {
     
     return( 
         !loading && (
-        <Modal show={modal} onHide={handleModalClick}>
+        <Modal show={modal} onHide={handlerModalClick}>
             <Image
                 src={recipe.strDrinkThumb}
                 alt={`Imagen receta ${recipe.strDrink}`}
               />
               <Modal.Header>
+
                 <Modal.Title>{recipe.strDrink}</Modal.Title>
               </Modal.Header>
               <Modal.Body>
